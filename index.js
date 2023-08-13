@@ -47,18 +47,16 @@ const searchBtn = document.getElementById('searchButton')
 const resultsContainer = document.getElementById('results')
 // ------------------------------------------------------ //
 
-
-// Funcion para que la busqueda del Input sirva
+// Funcion para que la busqueda del Input sirva.
 const buscadorPizza = () => {
   const inputValue = parseInt(numberInput.value)
 
-  // Encontrar y Buscar las pizzas por sus respectivos ID's
+  // Encontrar y Buscar las pizzas por sus respectivos ID's.
   const encontrarPizza = pizzas.find((pizza) => {
     return pizza.id === inputValue; 
   });
 
-
-  // Limpio resultados para que no se pisen entre si
+  // Limpio resultados para que no se pisen entre si.
   resultsContainer.innerHTML = '';
 
   if(encontrarPizza) {
@@ -82,20 +80,24 @@ const buscadorPizza = () => {
     imagen.alt = encontrarPizza.nombre.alt
   
     pizzaDiv.appendChild(nombrePizza)
-    pizzaDiv.appendChild(imagen)
-    pizzaDiv.appendChild(precio)
-    pizzaDiv.appendChild(ingredientes)
-    pizzaDiv.appendChild(id)
-  
+    pizzaDiv.appendChild(imagen) 
+    pizzaDiv.appendChild(precio) 
+    pizzaDiv.appendChild(ingredientes) 
+    pizzaDiv.appendChild(id) 
+
     resultsContainer.appendChild(pizzaDiv)
   } else {
-    resultsContainer.textContent = 'No se encontro ninguna Pizza con este ID.'
-    // Estilos al TextContent
-    // resultsContainer.style.color = 'red'
-    // resultsContainer.style.fontSize = '18px'
+    resultsContainer.textContent = 'No se pudo encontrar ninguna Pizza..'
     }
+    saveLocalStorage(encontrarPizza)
 }
 
+// Guardar en el LS (Local Storage)
+const saveLocalStorage = (encontrarPizza) => {
+  localStorage.setItem('pizzas', JSON.stringify(encontrarPizza))
+}
+
+let encontrarPizzas = JSON.parse(localStorage.getItem('pizza'))
 
 // Funcion inicilizadora. Aca estan los listeners.
 const init = () => {
